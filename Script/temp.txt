@@ -1,0 +1,78 @@
+CREATE TABLE [schema.]table_name(
+	column_name datatype(size)) [DEFAULT expr] [column_constraint,
+	...,
+	...,
+	[CONSTRAINT constraint_name] constraint_type (column1, column2, ...),
+)
+
+not null can only defind in column level
+
+alter table table_name drop constraint constraint_name;
+
+CONSTRAINT xx_fk FOREIGN KEY (col1) REFERENCES other_table(pk_column) /// only table level
+ON DELETE CASCADE
+ON DELETE SET NULL
+
+length()
+dump()
+
+'DD-MON-RRRR HH:MI:SS AM'
+
+interval year([digit]) to month
+interval day([digit]) to second
+insert into table value (interval '33' month);
+(interval '2500' second)
+(interval '25 2' day to hour)
+
+
+----------------------------
+
+create table dept as (select * from departments);
+
+create table a1 (
+	a11 number(5) constraint a1_a11_nn not null,
+	a12 number(5)
+)
+
+insert into a1 values(1,2)
+insert into a1 values(2,3)
+
+alter table a1 disable validate constraint a1_a11_nn;
+
+alter table a1 add(a13 number(5) constraint a1_a13_ck check(a13>0));
+
+alter table a1 modify(a11 number(5) constraint a1_a11_pk primary key);
+
+alter table a1 modify(a11 number(5) default 1);
+
+alter table a1 drop constraint a1_a11_nn;
+
+alter table a1 drop column a13;
+
+alter table a1 rename column a11 to a15;
+
+alter table a1 read only;
+
+alter table a1 read write;
+
+
+defferable initially defferred
+
+****create table from sub-query the constraint just initial not null only (other constraint must alter before create table)
+
+
+------------------------
+
+
+
+grant select, update on departments to osqln01;
+
+create synonym b1 for osqln01.dept; //create object(table) nickname
+
+
+insert into detp value(555,'b',100,1700);
+insert into detp value(666,'c',100,1700);
+savepoint I2;
+update dept set department_name = 'c' where department_id in (80,90);
+savepoint u2;
+rollback to I2;
