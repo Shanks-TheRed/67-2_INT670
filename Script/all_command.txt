@@ -1,0 +1,46 @@
+#system table
+user_table
+user_constraints
+user_cons_columns
+
+#
+show echo
+set echo on
+
+#describe table infomation
+desc table_name
+
+#format column length
+column grade_level format A20
+
+#concat with single qoute
+select last_name || q'[word's]' from table;
+
+#escape operator use \
+select * from employees where last_name like '%_\%S_%' escape '\';
+
+#define variable
+select &&col1, &col2 from table order by &col1;
+
+#show defined , undefine variable
+define
+undefine col1
+
+#clear screen
+cl scr
+
+#record log
+spool
+
+#edit last script
+edit
+
+#show last script
+list
+
+#change txt in script
+c/old_value/new_value
+
+#save script
+save c:\ex1.sql
+save {filename} replace
