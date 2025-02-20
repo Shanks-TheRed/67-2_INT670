@@ -56,7 +56,7 @@ alter table a1 read only;
 alter table a1 read write;
 
 
-defferable initially defferred
+constraint aa_uk unique(a1) defferable initially defferred;
 
 ****create table from sub-query the constraint just initial not null only (other constraint must alter before create table)
 
