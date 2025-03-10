@@ -121,8 +121,52 @@ insert into table value (interval '33' month);
 (interval '25 2' day to hour)
 
 
-#grant permission (ให้สิทธิ์ในการ select, update ที่ table departments ให้แก่ user osqln01)
+#####grant permission (ให้สิทธิ์ในการ select, update ที่ table departments ให้แก่ user osqln01)
 grant select, update on departments to osqln01;
+
+#connected user
+show user
+
+#role privilege
+desc role_sys_privs
+
+#object privilege
+desc role_tab_privs
+
+#user role
+desc user_role_privs
+
+#what receive table privilege and from who?
+desc user_tab_privs_recd
+
+#what receive column privilege and from who?
+desc user_col_privs_recd
+
+#who made change to my table
+desc user_tab_privs_made
+
+#dba privilege (only user system)
+desc dba_sys_privs
+
+#grant
+grant update (enployee_id, last_name) on employees to hr;
+grant select on employees to scott with grant option;
+grant select on osqln01.employees to hr with grant option;
+grant create table to scott with admin option;
+grant create role to osqln01;
+grant a_role to osqln01, hr;
+///// cant't grant select only some column to user , need to create view and grant view to user ////
+
+#revoke
+revoke select on employees from scott;
+
+#role
+create role a_role;
+grant create view, create sequence to a_role;
+grant a_role to b_role;
+
+alter user osqln01 identified by [new_password];
+
 
 #สร้างชื่อเล่นให้กับ table(ถาวร) //create object(table) nickname
 create synonym b1 for osqln01.dept; 
@@ -134,3 +178,21 @@ savepoint I2;
 update dept set department_name = 'c' where department_id in (80,90);
 savepoint u2;
 rollback to I2;
+
+
+#Single Row Functions
+-- number function
+round(expression, floating point) // after . = + , before . = - // >= 5 up , < 5 down
+trunc(expression, floating point) // round down
+mod(1600, 300) // modulo 1600%300 = 100
+
+--date function
+sysdate
+to_date(sysdate, 'DD-MON-RR HH:MI:SS AM') // DD-MM-YYYY HH:MI:SS
+to_char()
+months_between('01-SEP-95', '11-JAN'-94)
+add_months('31-JAN-96', 1)
+next_day('01-SEP-95', 'FRIDAY') // find next friday
+last_day('01-FEB-95')
+round(sysdate, MONTH/YEAR)
+trunc(sysdate, MONTH/YEAR)
