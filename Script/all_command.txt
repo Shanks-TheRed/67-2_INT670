@@ -196,3 +196,30 @@ next_day('01-SEP-95', 'FRIDAY') // find next friday
 last_day('01-FEB-95')
 round(sysdate, MONTH/YEAR)
 trunc(sysdate, MONTH/YEAR)
+
+
+TO_CHAR()
+TO_NUMBER()
+TO_DATE()
+
+select '1' + '2' from dual; // result = 3 with implicit convert
+select 'A' + 'B' // error
+
+
+to_char date format {D, DD, DDD, Day, year, YEAR, MM, MON, MONTH, th}
+fm for ignore space & zero // exam => select to_char(hire_date, 'fmMonth DD, Year')
+fx force format must the same
+spth date from number to text; exam ddspth
+
+
+select to_char(hire_date, 'Month DD, Year') // result = November 16, Nineteen ninety-Nine
+select to_number('50.00', '99.99') // result = 50
+select to_char(salary, '$9,999.99')
+
+to_date('November 16, 1999', 'Month dd, RRRR')
+
+
+NVL(column1, value)
+NVL2(column1, column2, value)
+NULLIF(column1, value)
+COALESCE(column1, column2, column_n)
