@@ -223,3 +223,47 @@ NVL(column1, value)
 NVL2(column1, column2, value)
 NULLIF(column1, value)
 COALESCE(column1, column2, column_n)
+
+
+#Multi rows function
+select avg(distinct nvl(commission_pct, 0)) from employees;
+select count(distinct job_id), count(distinct commission_pct) from employees;
+
+
+ex
+select count(distinct job_id) from employees;
+
+select sum(salary) from employees where job_id = 'IT_PROG';
+
+select trunc(max(salary)), trunc(min(salary)), trunc(sum(salary)), trunc(avg(salary)) from employees;
+
+select job_id, max(salary), min(salary), sum(salary), avg(salary) from employees where department_id in (90, 110) group by job_id;
+
+select department_id, avg(salary) from employees group by department_id having count(employee_id) > 10;
+
+
+#Joins
+desc user_cons_columns;
+desc user_constraints;
+
+
+select last_name, department_id, manager_id from employees natural join departments;
+
+select last_name, employees.department_id, manager_id from employees join departments using (manager_id);
+
+select last_name, department_id, manager_id
+from employees e
+left outer join departments d
+	on e.department_id = d.department_id;
+	
+select e.employee_id, e.last_name, e.manager_id, m.employee_id, m.last_name from employees e left join employees m on e.manager_id = m.employee_id order by e.employee_id;
+
+
+select count(e.employee_id), m.last_name
+from employees e 
+left join employees m on e.manager_id = m.employee_id 
+where m.last_name = 'King'
+group by m.last_name;
+
+
+------------------------
