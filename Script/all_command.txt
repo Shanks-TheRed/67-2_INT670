@@ -309,4 +309,14 @@ where not exists (
 );
 
 
+------Correlated subquery-------
+--------- select จาก outer ทั้งหมดมาแล้ว loop ทีละ row ไปเข้า subquery แล้วค่อย return ค่าออกมาเปรียบเทียบ-------
+select last_name, salary, department_id
+from employees outer
+where salary > (
+    select avg(salary)
+    from employees
+    where department_id = outer.department_id
+);
+
 ---------------------------------
