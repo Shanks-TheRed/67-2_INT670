@@ -266,4 +266,47 @@ where m.last_name = 'King'
 group by m.last_name;
 
 
-------------------------
+#Subquery
+
+update employees
+set department_name = (select department_name from departments where department_id = employees.department_id);
+
+
+update e
+set e.department_name = d.department_name
+from employees e
+inner join departments d
+	on e.department_id = d.department_id
+	
+	
+select e.last_name, e.salary, e.department_id
+from employees e
+inner join (
+	select avg(salary) avgSal, department_id
+	from employees
+	group by department_id
+) i
+	on e.department_id=i.department_id
+where e.salary > i.avgSal;
+
+
+select last_name
+from employees e
+where employee_id not in (
+	select manager_id
+	from employees w
+	where w.manager_id = e.employee_id
+	and manager_id is not null
+);
+  
+  
+select last_name
+from employees e
+where not exists (
+	select 1
+	from employees
+	where manager_id = e.employee_id
+);
+
+
+---------------------------------
